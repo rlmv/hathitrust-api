@@ -1,4 +1,4 @@
-hathitrust-client
+hathitrust-api
 =================
 
 A simple interface for the HathiTrust APIs. The package currently contains two basic classes for querying the Bibliographic API and the Data API (specifics can be found at http://www.hathitrust.org/documents/hathitrust-data-api.pdf). At the moment the methods are just simple URI wrappers, but there's certainly room for expansion.
