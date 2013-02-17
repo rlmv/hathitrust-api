@@ -7,11 +7,8 @@ from string import replace
 
 import requests
 
+from constants import SOLR_HOST, SOLR_PORT, QUERY_STUB, MARC_STUB
 
-SOLR_HOST = "http://chinkapin.pti.indiana.edu"
-SOLR_PORT = 9994
-QUERY_STUB = "/solr/select/"
-MARC_STUB = "/solr/MARC/"
 querybaseurl = "".join([SOLR_HOST, ":", str(SOLR_PORT), QUERY_STUB])
 marcbaseurl = "".join([SOLR_HOST, ":", str(SOLR_PORT), MARC_STUB])
 
