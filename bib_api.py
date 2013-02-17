@@ -1,12 +1,10 @@
 
-__author__ = 'robertmarchman'
-
 import requests
 
 from constants import BIB_BASEURL
 
 
-class HTBibClient(object):
+class BibAPI(object):
 
     def _multi_id_url(self, id_dictionary, full=False, return_type='json'):
         """ Construct and return a request url with the given arguments.

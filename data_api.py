@@ -1,14 +1,11 @@
 
-
-__author__ = 'robertmarchman'
-
 import requests
 from requests_oauthlib import OAuth1
 
 from constants import DATA_BASEURL, SECURE_DATA_BASEURL
 
 
-class HTDataClient(object):
+class DataAPI(object):
 
     def __init__(self, client_key, client_secret, secure=False):
         """ Initialize a HTDataInterface object.
