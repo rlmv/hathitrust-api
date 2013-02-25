@@ -101,7 +101,7 @@ class SolrAPI(object):
                 
 
     def getnumfound(self, querystring):
-        """ Return the total number oqf matches for the query. """
+        """ Return the total number of matches for the query. """
         return int(self.query(querystring, rows=0)['response']['numFound'])
 
 
