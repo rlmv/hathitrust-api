@@ -1,9 +1,21 @@
 hathitrust-api
 =================
 
-A simple interface for the HathiTrust APIs. The package currently contains two basic classes for querying the Bibliographic API and the Data API (specifics can be found at http://www.hathitrust.org/documents/hathitrust-data-api.pdf). At the moment the methods are just simple URI wrappers, but there's certainly room for expansion.
+A simple interface for the HathiTrust APIs. The package contains two basic classes for querying the [Bibliographic API][bib api], [Data API][data api], and the [HTRC Solr Proxy][solr api]. For consistancy, each API is represented by a class with methods for querying the resource.
 
+[bib api]:  
+[data api]: http://www.hathitrust.org/documents/hathitrust-data-api.pdf
+[solr api]: 
+
+data_api
+--------
 An OAuth keyset from HathiTrust is required to use the Data API.
+
+bib_api
+-------
+
+solr_api
+--------
 
 
 Packages:
