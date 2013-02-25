@@ -21,9 +21,12 @@ solr_api
 Packages:
 ---------
 * requests (available in PyPI)
-* requests-oauthlib (a Requests plugin; the version in PyPI currently has some errors, so get it straight from the source repo [here](https://github.com/requests/requests-oauthlib).)
+* requests-oauthlib (a Requests plugin; the version in PyPI currently has some errors, so get it straight from the [source repo][req oauth].)
 
-To Do:
+[req oauth]: https://github.com/requests/requests-oauthlib
+
+
+Needed:
 ------
 * Write test cases.
 * Implement exceptions to identify HathiTrust response codes.
