@@ -7,10 +7,8 @@ from string import replace
 
 import requests
 
-from constants import SOLR_HOST, SOLR_PORT, QUERY_STUB, MARC_STUB
+from constants import QUERY_BASEURL, MARC_BASEURL
 
-querybaseurl = "".join([SOLR_HOST, ":", str(SOLR_PORT), QUERY_STUB])
-marcbaseurl = "".join([SOLR_HOST, ":", str(SOLR_PORT), MARC_STUB])
 
 class SolrAPI(object):
         
@@ -36,7 +34,7 @@ class SolrAPI(object):
         if fields:
             terms['fl'] = ','.join(fields)
 
-        r = requests.get(querybaseurl, params=terms)
+        r = requests.get(QUERY_BASEURL, params=terms)
         r.raise_for_status()
 
         return r.json()
@@ -122,7 +120,7 @@ class SolrAPI(object):
         idstring = "|".join(doc_id for doc_id in ids)
         params = {"volumeIDs" : idstring}
         
-        r = requests.get(marcbaseurl, params=params)
+        r = requests.get(MARC_BASEURL, params=params)
         r.raise_for_status()
         return r.content
 
