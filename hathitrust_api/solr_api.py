@@ -1,7 +1,6 @@
 
 import sys
 import json
-import argparse
 import zipfile
 from string import replace
 
