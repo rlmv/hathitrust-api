@@ -60,7 +60,7 @@ The HTRC Solr Proxy is a search index over the public domain collection.
 Packages:
 ---------
 * [requests][requests] (available in PyPI)
-* [requests-oauthlib][req oauth[]] (a Requests plugin; the version in PyPI had some errors, so you may need to get it straight from the source.)
+* [requests-oauthlib][req oauth] (a Requests plugin; the version in PyPI had some errors, so you may need to get it straight from the source.)
 
 [req oauth]: https://github.com/requests/requests-oauthlib
 [requests]: http://docs.python-requests.org/en/latest/
