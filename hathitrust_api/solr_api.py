@@ -11,12 +11,12 @@ from constants import QUERY_BASEURL, MARC_BASEURL
 
 class SolrAPI(object):
         
-    def query(self, querystring, rows=10, start=0, fields=[]):
+    def query(self, querystring, rows=10, start=0, fields=None):
         """
         Arguments:
             rows: the maximum number of results to return
             fields: an iterable of fields to return with the
-                response, eg. fl=['title', 'author']
+                response, eg. fields=['title', 'author']
 
         Return:
             JSON resource
