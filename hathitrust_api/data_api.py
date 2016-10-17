@@ -9,20 +9,16 @@ class DataAPI(object):
 
     def __init__(self, client_key, client_secret, secure=False):
         """ Initialize a DataAPI object.
-
         Args:
             client_key: OAuth client key (registered with HathiTrust)
             client_secret: secret OAuth key
             secure: toggles http/https session. Defaults to
                  http, use https for access to restricted content.
-
         Initializes a persistent Requests session and attaches 
         OAuth credentials to the session. All queries are performed as 
         method calls on the HTDataInterface object.
-
         For now, all queries return the raw content string, rather than
         processing the json or xml structures.
-
         """
 
         self.client_key = client_key
@@ -40,13 +36,13 @@ class DataAPI(object):
             self.baseurl = DATA_BASEURL
 
 
-    def _makerequest(self, resource, doc_id, sequence=None, 
-                        v=1, json=False, callback=None):
+    def _makerequest(self, resource, doc_id, doc_type='volume', sequence=None, 
+                        v=2, json=False, callback=None):
         """ Construct and perform URI request.
-
         Args:
             resource: resource type
             doc_id: document identifier of target
+            doc_type: type of document: volume or article
             sequence: page number for single page resources
             v: API version 
             json: if json=True, the json representation of
@@ -54,108 +50,92 @@ class DataAPI(object):
                 are xml or xml+atom by default.
             callback: optional javascript callback function, 
                 which only has an effect if json=True.
-
         Return: 
             content of the response, in bytes
-
         Note there's not much error checking on url construction, 
         but errors do get raised after badly formed requests. 
         To do: implement some exception checking here, and identify 
         what sort of errors are being returned (eg. BadRequest, 
         Unauthorized, NotFound, etc.)   
-
         """
 
-        url = "".join([self.baseurl, resource, '/', doc_id])
+        url = "".join([self.baseurl, doc_type, '/', resource, '/', doc_id])
         
         if sequence:
             url += '/' + str(sequence)
-
+        print(url)
         params = {'v': str(v)}
         if json:
-            params['alt'] = 'json'
+            params['format'] = 'json'
             if callback:
                 params['callback'] = callback
-
+        
         r = self.rsession.get(url, params=params)
         r.raise_for_status()
 
         return r.content
 
 
-    def getmeta(self, doc_id, json=False):
+    def getmeta(self, doc_id, doc_type='volume', json=False):
         """ Retrieve Volume and Rights Metadata resources.
-
         Args:
             doc_id: document identifier
             json: if json=True, the json representation of
                 the resource is returned, otherwise efaults to an atom+xml 
                 format.
-
         Return: 
             xml or json string
-
         """
-        return self._makerequest('meta', doc_id, json=json)
+        return self._makerequest('meta', doc_id, doc_type=doc_type, json=json)
 
 
-    def getstructure(self, doc_id, json=False):
+    def getstructure(self, doc_id, doc_type='volume', json=False):
         """ Retrieve a METS document.
-
         Args:
             doc_id: target document
             json: toggles json/xml 
         Return:
             xml or json string
-
         """
-        return self._makerequest('structure', doc_id, json=json)
+        return self._makerequest('structure', doc_id, doc_type=doc_type, json=json)
 
 
-    def getpagemeta(self, doc_id, seq, json=False):
+    def getpagemeta(self, doc_id, seq, doc_type='volume', json=False):
         """ Retrieve single page metadata. """
-        return self._makerequest('pagemeta', doc_id, sequence=seq, json=json)
+        return self._makerequest('pagemeta', doc_id, doc_type=doc_type, sequence=seq, json=json)
 
 
-    def getaggregate(self, doc_id):
+    def getaggregate(self, doc_id, doc_type='volume'):
         """ Get aggregate record data. 
-
         Return: 
             zip content that contains tiff/jp2/jpeg, .txt OCR files,
                 + Source METS (not the same as Hathi METS)
-
         """
-        return self._makerequest('aggregate', doc_id)
+        return self._makerequest('aggregate', doc_id, doc_type=doc_type)
 
 
-    def getpageimage(self, doc_id, seq):
+    def getpageimage(self, doc_id, seq, doc_type='volume'):
         """ Retrieve Single Page Image.
-
         Return:
             response with tiff, jp2, or jpeg file
-
         """
-        return self._makerequest('pageimage', doc_id, sequence=seq)
+        return self._makerequest('pageimage', doc_id, doc_type = doc_type, sequence=seq)
 
 
-    def getpageocr(self, doc_id, sequence):
+    def getpageocr(self, doc_id, sequence, doc_type='volume'):
         """  Get single-page OCR.
-
         Return:
             UTF-8 encoded OCR plain text
-
         """
-        return self._makerequest('pageocr', doc_id, sequence=sequence)
+        return self._makerequest('pageocr', doc_id, doc_type = doc_type, sequence=sequence)
 
 
-    def getpagecoordocr(self, doc_id, sequence):
+    def getpagecoordocr(self, doc_id, sequence, doc_type='volume'):
         """ Get single-page coordinate OCR.
-
         Return:
             UTF-8 encoded XML OCR
-
         """
-        return self._makerequest('pagecoordocr', doc_id, sequence=sequence)
+        return self._makerequest('pagecoordocr', doc_id, doc_type = doc_type, sequence=sequence)
 
    
 
