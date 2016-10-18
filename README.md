@@ -7,6 +7,8 @@ A simple interface for the HathiTrust APIs. The package contains basic classes a
 [data api]: http://www.hathitrust.org/data_api
 [solr api]: http://wiki.htrc.illinois.edu/display/COM/Solr+Proxy+API+User+Guide
 
+Currently only the data api works with v2 of the HathiTrust API.
+
 #### DataAPI
 The Data API retrieves non-google public domain works from the HathiTrust.
 
