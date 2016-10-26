@@ -63,7 +63,7 @@ class DataAPI(object):
         
         if sequence:
             url += '/' + str(sequence)
-        print(url)
+
         params = {'v': str(v)}
         if json:
             params['format'] = 'json'
@@ -137,7 +137,35 @@ class DataAPI(object):
         """
         return self._makerequest('pagecoordocr', doc_id, doc_type = doc_type, sequence=sequence)
 
-   
-
+    def getdocumentocr(self, doc_id, start_page = 1, end_page = 1e5 , doc_type = 'volume'):
+        """  Get OCR for an entire document.
+        Return:
+            List of UTF-8 encoded OCR plain text from start_page to end_page (or entire work if no bounds provided)
+        """
+        outPages = []
+        i = start_page
+        while (i <= end_page):
+            try:
+                outPages.append(self.getpageocr(doc_id, i, doc_type=doc_type))
+                i += 1
+            except:
+                break
+        return outPages
+        
+    def getdocumentcoordocr(self, doc_id, start_page = 1, end_page = 1e5 , doc_type = 'volume'):
+        """  Get coordinate OCR for an entire document.
+        Return:
+            List of UTF-8 encoded XML OCR plain text from start_page to end_page (or entire work if no bounds provided)
+        """
+        outPages = []
+        i = start_page
+        while (i <= end_page):
+            try:
+                outPages.append(self.getpagecoordocr(doc_id, i, doc_type=doc_type))
+                i += 1
+            except:
+                break
+        return outPages
+        
 
    
