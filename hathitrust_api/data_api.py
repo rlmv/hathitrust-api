@@ -7,7 +7,7 @@ from constants import DATA_BASEURL, SECURE_DATA_BASEURL
 
 class DataAPI(object):
 
-    def __init__(self, client_key, client_secret, secure=False):
+    def __init__(self, client_key, client_secret, secure=True):
         """ Initialize a DataAPI object.
         Args:
             client_key: OAuth client key (registered with HathiTrust)
