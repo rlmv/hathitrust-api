@@ -7,8 +7,6 @@ A simple interface for the HathiTrust APIs. The package contains basic classes a
 [data api]: http://www.hathitrust.org/data_api
 [solr api]: http://wiki.htrc.illinois.edu/display/COM/Solr+Proxy+API+User+Guide
 
-Currently only the data api works with v2 of the HathiTrust API.
-
 #### DataAPI
 The Data API retrieves non-google public domain works from the HathiTrust.
 
@@ -18,7 +16,7 @@ Example usage:
 ```
 >>> from hathitrust_api import DataAPI
 >>> data_api = DataAPI(your_oauth_key, your_oauth_secret)
->>> ocrtext = data_api.getpageocr('dul1.ark:/13960/t00z82c1q', 14)
+>>> ocrtext = data_api.getpageocr('nyp.33433082228226', 120)
 ```
 
 [kgs]: http://babel.hathitrust.org/cgi/kgs/request
