@@ -3,14 +3,32 @@ hathitrust-api
 
 A simple interface for the HathiTrust APIs. The package contains basic classes and associated methods for querying the [Bibliographic API][bib api], [Data API][data api], and the [HTRC Solr Proxy][solr api].
 
+The package is compatible with Python 2 and Python 3.
+
 [bib api]: http://www.hathitrust.org/bib_api
 [data api]: http://www.hathitrust.org/data_api
 [solr api]: http://wiki.htrc.illinois.edu/display/COM/Solr+Proxy+API+User+Guide
 
-#### DataAPI
+Installation
+------------
+
+Clone and install from this repository:
+```
+git clone https://github.com/rlmv/hathitrust-api.git
+cd hathitrust-api
+python setup.py install
+```
+
+Or install directly using `pip`:
+```
+pip install hathitrust-api
+```
+
+DataAPI
+-------
 The Data API retrieves non-google public domain works from the HathiTrust.
 
-An OAuth [keyset][kgs] from HathiTrust is required to use the Data API. 
+An OAuth [keyset][kgs] from HathiTrust is required to use the Data API.
 
 Example usage:
 ```
@@ -21,7 +39,8 @@ Example usage:
 
 [kgs]: http://babel.hathitrust.org/cgi/kgs/request
 
-#### BibAPI
+BibAPI
+------
 The bibliographic API delivers HathiTrust bibliographic data and MARC records in JSON format.
 
 Example:
@@ -35,26 +54,17 @@ Example:
 [u'1670']
 ```
 
-#### SolrAPI
+SolrAPI
+-------
 The HTRC Solr Proxy is a search index over the public domain collection.
 
-``` 
+```
 >>> from hathitrust_api import SolrAPI
 >>> solr = SolrAPI()
 >>> results = solr.query("new zealand", fields=['title'])
 >>> results
 {u'responseHeader': {u'status': 0, u'QTime': 19}, u'response': {u'start': 0, u'numFound': 366613, u'docs': [{u'title': [u'The statues of New Zealand ...']}, {u'title': [u'New Zealand.']}, {u'title': [u"Wise's New Zealand index"]}, {u'title': [u'Palaeontological bulletin.']}, {u'title': [u'New Zealand,']}, {u'title': [u'The New Zealand official year-book.']}, {u'title': [u'The New Zealand official year-book.']}, {u'title': [u'The New Zealand official year-book.']}, {u'title': [u'The New Zealand official year-book.']}, {u'title': [u'The New Zealand official year-book.']}]}}
 ```
-
-
-
-Packages:
----------
-* [requests][requests] (available in PyPI)
-* [requests-oauthlib][req oauth] (a Requests plugin; the version in PyPI had some errors, so you may need to get it straight from the source.)
-
-[req oauth]: https://github.com/requests/requests-oauthlib
-[requests]: http://docs.python-requests.org/en/latest/
 
 Needed:
 ------
