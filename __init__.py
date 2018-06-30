@@ -1,3 +1,3 @@
 
 
-from hathitrust_api import BibAPI, DataAPI, SolrAPI
+from .hathitrust_api import BibAPI, DataAPI, SolrAPI

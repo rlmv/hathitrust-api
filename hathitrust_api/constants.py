@@ -1,5 +1,4 @@
 
-
 # constants for bibliographic api
 BIB_BASEURL = 'http://catalog.hathitrust.org/api/volumes/'
 

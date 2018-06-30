@@ -1,8 +1,9 @@
+from __future__ import absolute_import
 
 import requests
 from requests_oauthlib import OAuth1
 
-from constants import DATA_BASEURL, SECURE_DATA_BASEURL
+from .constants import DATA_BASEURL, SECURE_DATA_BASEURL
 
 
 class DataAPI(object):

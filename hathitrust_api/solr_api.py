@@ -1,12 +1,14 @@
+from __future__ import absolute_import
+from __future__ import print_function
+
 
 import sys
 import json
 import zipfile
-from string import replace
 
 import requests
 
-from constants import QUERY_BASEURL, MARC_BASEURL
+from .constants import QUERY_BASEURL, MARC_BASEURL
 
 
 class SolrAPI(object):
@@ -133,10 +135,10 @@ def _cleanquery(querystring):
     it will regard terms surrounded with '...' as separate
     queryterms, but "..." as a single concatenated phrase.
     """
-    return replace(querystring, '\'', '\"')
+    return querystring.replace('\'', '\"')
     
 
 if __name__ == "__main__":
     #ids = [ 'mdp.39015026997125', 'uc1.31822021576848', 'uc2.ark:/13960/t3902080r']
       
-    print _cleanquery("author : 'new zealand'")
+    print(_cleanquery("author : 'new zealand'"))

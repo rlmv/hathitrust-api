@@ -1,7 +1,9 @@
+from __future__ import absolute_import
+
 
 import requests
 
-from constants import BIB_BASEURL
+from .constants import BIB_BASEURL
 
 
 class BibAPI(object):
