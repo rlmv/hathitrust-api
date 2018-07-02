@@ -5,7 +5,7 @@ with open('README.md') as f:
 
 setuptools.setup(
     name='hathitrust_api',
-    version='0.1.0',
+    version='0.1.1',
     author='Bo Marchman',
     author_email='bo.marchman@gmail.com',
     url='https://github.com/rlmv/hathitrust-api',
