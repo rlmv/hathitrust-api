@@ -7,6 +7,7 @@ setuptools.setup(
     name='hathitrust_api',
     version='0.1.0',
     author='Bo Marchman',
+    author_email='bo.marchman@gmail.com',
     url='https://github.com/rlmv/hathitrust-api',
     description='Python wrappers for the HathiTrust APIs',
     long_description=long_description,
