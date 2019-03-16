@@ -15,8 +15,8 @@ class DataAPI(object):
             client_secret: secret OAuth key
             secure: toggles http/https session. Defaults to
                  http, use https for access to restricted content.
-        Initializes a persistent Requests session and attaches 
-        OAuth credentials to the session. All queries are performed as 
+        Initializes a persistent Requests session and attaches
+        OAuth credentials to the session. All queries are performed as
         method calls on the HTDataInterface object.
         For now, all queries return the raw content string, rather than
         processing the json or xml structures.
@@ -24,8 +24,8 @@ class DataAPI(object):
 
         self.client_key = client_key
         self.client_secret = client_secret
-        self.oauth = OAuth1(client_key=client_key, 
-                            client_secret=client_secret, 
+        self.oauth = OAuth1(client_key=client_key,
+                            client_secret=client_secret,
                             signature_type='query')
 
         self.rsession = requests.Session()
@@ -33,11 +33,11 @@ class DataAPI(object):
 
         if secure:
             self.baseurl = SECURE_DATA_BASEURL
-        else: 
+        else:
             self.baseurl = DATA_BASEURL
 
 
-    def _makerequest(self, resource, doc_id, doc_type='volume', sequence=None, 
+    def _makerequest(self, resource, doc_id, doc_type='volume', sequence=None,
                         v=2, json=False, callback=None):
         """ Construct and perform URI request.
         Args:
@@ -45,23 +45,26 @@ class DataAPI(object):
             doc_id: document identifier of target
             doc_type: type of document: volume or article
             sequence: page number for single page resources
-            v: API version 
+            v: API version
             json: if json=True, the json representation of
-                the resource is returned. Only valid for resources that 
+                the resource is returned. Only valid for resources that
                 are xml or xml+atom by default.
-            callback: optional javascript callback function, 
+            callback: optional javascript callback function,
                 which only has an effect if json=True.
-        Return: 
+        Return:
             content of the response, in bytes
-        Note there's not much error checking on url construction, 
-        but errors do get raised after badly formed requests. 
-        To do: implement some exception checking here, and identify 
-        what sort of errors are being returned (eg. BadRequest, 
-        Unauthorized, NotFound, etc.)   
+        Note there's not much error checking on url construction,
+        but errors do get raised after badly formed requests.
+        To do: implement some exception checking here, and identify
+        what sort of errors are being returned (eg. BadRequest,
+        Unauthorized, NotFound, etc.)
         """
 
-        url = "".join([self.baseurl, doc_type, '/', resource, '/', doc_id])
-        
+        if doc_type:
+            doc_type = '%s/' % doc_type
+
+        url = "".join([self.baseurl, doc_type, resource, '/', doc_id])
+
         if sequence:
             url += '/' + str(sequence)
 
@@ -70,7 +73,7 @@ class DataAPI(object):
             params['format'] = 'json'
             if callback:
                 params['callback'] = callback
-        
+
         r = self.rsession.get(url, params=params)
         r.raise_for_status()
 
@@ -82,19 +85,19 @@ class DataAPI(object):
         Args:
             doc_id: document identifier
             json: if json=True, the json representation of
-                the resource is returned, otherwise efaults to an atom+xml 
+                the resource is returned, otherwise efaults to an atom+xml
                 format.
-        Return: 
+        Return:
             xml or json string
         """
         return self._makerequest('meta', doc_id, doc_type=doc_type, json=json)
 
 
-    def getstructure(self, doc_id, doc_type='volume', json=False):
+    def getstructure(self, doc_id, doc_type='', json=False):
         """ Retrieve a METS document.
         Args:
             doc_id: target document
-            json: toggles json/xml 
+            json: toggles json/xml
         Return:
             xml or json string
         """
@@ -106,9 +109,9 @@ class DataAPI(object):
         return self._makerequest('pagemeta', doc_id, doc_type=doc_type, sequence=seq, json=json)
 
 
-    def getaggregate(self, doc_id, doc_type='volume'):
-        """ Get aggregate record data. 
-        Return: 
+    def getaggregate(self, doc_id, doc_type=''):
+        """ Get aggregate record data.
+        Return:
             zip content that contains tiff/jp2/jpeg, .txt OCR files,
                 + Source METS (not the same as Hathi METS)
         """
@@ -152,7 +155,7 @@ class DataAPI(object):
             except:
                 break
         return outPages
-        
+
     def getdocumentcoordocr(self, doc_id, start_page = 1, end_page = 1e5 , doc_type = 'volume'):
         """  Get coordinate OCR for an entire document.
         Return:
@@ -167,6 +170,6 @@ class DataAPI(object):
             except:
                 break
         return outPages
-        
 
-   
+
+
